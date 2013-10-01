@@ -1,0 +1,28 @@
+INSTRUCTION  ENCODING            STACK PICTURE     COMMENT
+
+NOP	     0000		       --	   No operation
+ADD	     0001		 n1 n2 -- n3	   Add
+
+NAND	     0010		 n1 n2 -- n3	   Bitwise NAND
+XOR	     0011		 n1 n2 -- n3	   Bitwise XOR
+SHR	     0100		    n1 -- n2	   Shift right by one bit
+SHL	     0101		    n1 -- n2	   Shift left by one bit
+
+>R	     0110		    n1 -- 	   Pop top of stack and push it on return stack
+R>	     0111		       -- n1	   Pop top of return stack and push it on data stack
+
+>A	     1000		    n1 --	   Pop into address register
+A>	     1001		       -- n1	   Push address register
+
+FETCH	     1010		       -- n1	   Push value from memory addressed by address register
+STORE	     1011	            n1 -- 	   Store n1 to memory addressed by address register
+
+RETURN	     1100		       --	   Jump to address popped from return stack
+CRETURN	     1101		  cond --	   Jump to address popped from return stack if cond is nonzero (only popping return stack if jumping)
+
+JMP	     111000nnnnnnnnnn          --	   Unconditionally jump to address specified by nnnnnnnnnn
+CJMP	     111001nnnnnnnnnn	  cond --	   Jump to address nnnnnnnnnn if cond is nonzero
+CALL	     111010nnnnnnnnnn	       --	   Store return address on return stack and jump to address nnnnnnnnnn
+CCALL	     111011nnnnnnnnnn	  cond --	   Same as above but only when cond is nonzero
+
+LITERAL	     1111nnnnnnnnnnnn	       -- n1	   Push literal value specified by nnnnnnnnnnnn on data stack
